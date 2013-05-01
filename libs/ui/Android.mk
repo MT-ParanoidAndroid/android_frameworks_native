@@ -23,12 +23,20 @@ LOCAL_SRC_FILES:= \
 	PixelFormat.cpp \
 	Rect.cpp \
 	Region.cpp
+	
+ifeq ($(BOARD_USES_TRIUMPH_OVERLAY),true)
+    LOCAL_SRC_FILES+= Overlay.cpp
+endif
+	
 
 LOCAL_SHARED_LIBRARIES := \
 	libcutils \
 	libutils \
 	libhardware
 
+ifeq ($(BOARD_USES_HTC_CAMERA),true)
+    LOCAL_SRC_FILES+= OverlayHtc.cpp
+endif
 ifneq ($(BOARD_FRAMEBUFFER_FORCE_FORMAT),)
 LOCAL_CFLAGS += -DFRAMEBUFFER_FORCE_FORMAT=$(BOARD_FRAMEBUFFER_FORCE_FORMAT)
 endif
